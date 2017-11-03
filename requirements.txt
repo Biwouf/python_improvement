@@ -1,0 +1,5 @@
+Python 3.4.1
+
+Libs (perfor a pip install if you want them)
+- Pandas
+- Numpy
