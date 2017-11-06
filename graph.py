@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /usr/bin/env python3.6
 # coding: utf-8
 
 import numpy as np
@@ -44,7 +44,7 @@ mps = pd.read_csv("data/current_mps.csv", sep = ";")
 #print(mps.iloc[0])
 all_parties = mps["parti_ratt_financier"].dropna().unique()
 
-print(mps.nom[mps['parti_ratt_financier'] == 'En Marche !'])
+#print(mps.nom[mps['parti_ratt_financier'] == 'En Marche !'])
 
 
 
