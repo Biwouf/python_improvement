@@ -5,7 +5,8 @@ import numpy as np
 import pandas as pd 
 import matplotlib as mpl 
 mpl.use('TkAgg')
-import matplotlib.pyplot as mplp
+import matplotlib.pyplot as plt
+import seaborn as sns 
 
 famille_panda = [
 	[100, 5, 20, 80],
@@ -47,7 +48,6 @@ all_parties = mps["parti_ratt_financier"].dropna().unique()
 #print(mps.nom[mps['parti_ratt_financier'] == 'En Marche !'])
 
 
-
 class SetOfParliamentMembers:
 
 	def __init__(self, name):
@@ -75,4 +75,12 @@ class SetOfParliamentMembers:
 			result[party] = subset 												#Création d'un dico avec key > parti / value > sopm object
 
 		return result
+
+#Graph
+fig, ax = plt.subplots()
+ax.pie([24, 18], labels= ['Femmes', 'Hommes'],
+					autopct='%1.2f pourcents')		#Indique le nombre de chiffres après la virgule et la légende des unités
+ax.axis('equal')									#Pour un rendu plus beau
+plt.title("Répartition des sexes à l'assemblée")
+plt.show()
 
