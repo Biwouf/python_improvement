@@ -1,5 +1,10 @@
-Python 3.4.1
+Python 3.6.3
 
-Libs (perfor a pip install if you want them)
+Libs (perform a pip install if you want them)
 - Pandas
 - Numpy
+- Matplotlib
+- Seaborn
+
+Data files (CSV and XML) are ignored because they're too large.
+They can be downloaded here => https://openclassrooms.com/courses/manipulez-des-donnees-avec-python-1/tirez-parti-de-ce-cours-1 (scroll to the bottom)
