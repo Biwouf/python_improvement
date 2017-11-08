@@ -8,6 +8,7 @@ mpl.use('TkAgg')
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
+import logging as lg
 
 famille_panda = [
 	[100, 5, 20, 80],
@@ -100,19 +101,25 @@ class SetOfParliamentMembers:
 
 		return result
 
-def launch_analysis(data_file, by_party=False):
+def launch_analysis(data_file, by_party=False, party=''):
 	sopm = SetOfParliamentMembers('All MPS')
 	data = sopm.data_from_csv(os.path.join("data", data_file))
 	sopm.display_chart()
 
-	if by_party:
+	if by_party:																#Va imprimer les graphes de chaque party un par un
 		for party, s in sopm.split_by_political_party().items():
 			s.display_chart(party)
+
+	if party != '':
+		try:
+			sopm.split_by_political_party()[party].display_chart(party)
+		except KeyError as e:
+			lg.critical('Oops ! Party not found > {}'.format(e))
 
 
 
 def main():
-	launch_analysis("current_mps.csv", False)
+	launch_analysis("current_mps.csv", False, 'En Marche !')
 
 if __name__ == '__main__':
 	main()
