@@ -6,7 +6,8 @@ import pandas as pd
 import matplotlib as mpl 
 mpl.use('TkAgg')
 import matplotlib.pyplot as plt
-import seaborn as sns 
+import seaborn as sns
+import os
 
 famille_panda = [
 	[100, 5, 20, 80],
@@ -59,8 +60,31 @@ class SetOfParliamentMembers:
 	def data_from_dataframe(self, dataframe):
 		self.dataframe = dataframe
 
-	def display_chart(self):
-		pass
+	def display_chart(self, party=''):
+		data = self.dataframe
+		females = data[data.sexe == 'F']
+		males = data[data.sexe == 'H']
+
+		counts = [len(females), len(males)]
+		counts = np.array(counts)
+		nb_mps = counts.sum()
+		proportions = counts / nb_mps
+
+		labels = ["Female ({})".format(counts[0]), "Male ({})".format(counts[1])]
+
+		fig, ax = plt.subplots()
+		ax.pie(proportions,
+				labels=labels,
+				autopct='%1.1f pourcents')
+		ax.axis('equal')
+		
+		if party != '':
+			plt.title('Répartition des sexes - {}'.format(party))
+		else:
+			plt.title('Répartition des sexes à l\'assemblée')
+
+		plt.show()
+
 
 	def split_by_political_party(self):
 		result = {}
@@ -76,11 +100,29 @@ class SetOfParliamentMembers:
 
 		return result
 
+def launch_analysis(data_file, by_party=False):
+	sopm = SetOfParliamentMembers('All MPS')
+	data = sopm.data_from_csv(os.path.join("data", data_file))
+	sopm.display_chart()
+
+	if by_party:
+		for party, s in sopm.split_by_political_party().items():
+			s.display_chart(party)
+
+
+
+def main():
+	launch_analysis("current_mps.csv", False)
+
+if __name__ == '__main__':
+	main()
+
+
 #Graph
-fig, ax = plt.subplots()
-ax.pie([24, 18], labels= ['Femmes', 'Hommes'],
-					autopct='%1.2f pourcents')		#Indique le nombre de chiffres après la virgule et la légende des unités
-ax.axis('equal')									#Pour un rendu plus beau
-plt.title("Répartition des sexes à l'assemblée")
-plt.show()
+#fig, ax = plt.subplots()
+#ax.pie([24, 18], labels= ['Femmes', 'Hommes'],
+#					autopct='%1.2f pourcents')		#Indique le nombre de chiffres après la virgule et la légende des unités
+#ax.axis('equal')									#Pour un rendu plus beau
+#plt.title("Répartition des sexes à l'assemblée")
+#plt.show()
 
