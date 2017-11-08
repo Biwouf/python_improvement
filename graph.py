@@ -121,12 +121,15 @@ def launch_analysis(data_file, by_party=False, party=''):
 def parse_arguments():
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-p", "--party", help="""Type the party for which you wanna know the parity""")
+	parser.add_argument("-a", "--all", help="""Say if you wanna browse all the parties""")
 	return parser.parse_args()
 
 def main():
 	args = parse_arguments()
 	if args.party:
-		launch_analysis("current_mps.csv", False, args.party)
+		launch_analysis("current_mps.csv", args.party)
+	elif args.all:
+		launch_analysis("current_mps.csv", True)
 	else:
 		launch_analysis("current_mps.csv")
 
