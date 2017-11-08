@@ -1,6 +1,7 @@
 #! /usr/bin/env python3.6
 # coding: utf-8
 
+import argparse
 import numpy as np
 import pandas as pd 
 import matplotlib as mpl 
@@ -10,17 +11,17 @@ import seaborn as sns
 import os
 import logging as lg
 
-famille_panda = [
-	[100, 5, 20, 80],
-	[50, 2.5, 10, 40],
-	[110, 6, 25, 90]
-]
+#famille_panda = [
+#	[100, 5, 20, 80],
+#	[50, 2.5, 10, 40],
+#	[110, 6, 25, 90]
+#]
 
-famille_panda_numpy = np.array(famille_panda)
+#famille_panda_numpy = np.array(famille_panda)
 
 #print(famille_panda_numpy[2,0])
 
-famille_panda_df = pd.DataFrame(famille_panda_numpy, index = ['maman', 'bebe', 'papa'], columns = ['pattes', 'poils', 'queue', 'ventre'])
+#famille_panda_df = pd.DataFrame(famille_panda_numpy, index = ['maman', 'bebe', 'papa'], columns = ['pattes', 'poils', 'queue', 'ventre'])
 #print(famille_panda_df)
 #print(famille_panda_df.ventre) 			#Imprime les mesures du ventre
 #print(famille_panda_df['ventre'].values) 	#Imprime juste les valeurs
@@ -43,9 +44,9 @@ famille_panda_df = pd.DataFrame(famille_panda_numpy, index = ['maman', 'bebe', '
 
 
 
-mps = pd.read_csv("data/current_mps.csv", sep = ";")
+#mps = pd.read_csv("data/current_mps.csv", sep = ";")
 #print(mps.iloc[0])
-all_parties = mps["parti_ratt_financier"].dropna().unique()
+#all_parties = mps["parti_ratt_financier"].dropna().unique()
 
 #print(mps.nom[mps['parti_ratt_financier'] == 'En Marche !'])
 
@@ -117,19 +118,19 @@ def launch_analysis(data_file, by_party=False, party=''):
 			lg.critical('Oops ! Party not found > {}'.format(e))
 
 
+def parse_arguments():
+	parser = argparse.ArgumentParser()
+	parser.add_argument("-p", "--party", help="""Type the party for which you wanna know the parity""")
+	return parser.parse_args()
 
 def main():
-	launch_analysis("current_mps.csv", False, 'En Marche !')
+	args = parse_arguments()
+	if args.party:
+		launch_analysis("current_mps.csv", False, args.party)
+	else:
+		launch_analysis("current_mps.csv")
 
 if __name__ == '__main__':
 	main()
 
-
-#Graph
-#fig, ax = plt.subplots()
-#ax.pie([24, 18], labels= ['Femmes', 'Hommes'],
-#					autopct='%1.2f pourcents')		#Indique le nombre de chiffres après la virgule et la légende des unités
-#ax.axis('equal')									#Pour un rendu plus beau
-#plt.title("Répartition des sexes à l'assemblée")
-#plt.show()
 
