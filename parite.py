@@ -28,7 +28,6 @@ def main():
 	elif args.all:
 		c_an.launch_analysis("current_mps.csv", by_party=True)
 	else:
-		lg.debug('Passed here')
 		c_an.launch_analysis("current_mps.csv", view_all=True)
 
 if __name__ == "__main__":
