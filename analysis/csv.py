@@ -26,7 +26,7 @@ class SetOfParliamentMembers:
 	def data_from_dataframe(self, dataframe):
 		self.dataframe = dataframe
 
-	def display_chart(self):
+	def display_chart(self, party=''):
 		data = self.dataframe
 		females = data[data.sexe == 'F']
 		males = data[data.sexe == 'H']
@@ -42,7 +42,13 @@ class SetOfParliamentMembers:
 		ax.pie(proportions,
 				labels=labels,
 				autopct='%1.1f pourcents')
-		plt.title('Répartition des sexes')
+		ax.axis('equal')
+
+		if party != '':
+			plt.title('Répartition des sexes - {}'.format(party))
+		else:
+			plt.title('Répartition des sexes')
+
 		plt.show()
 
 
@@ -60,21 +66,22 @@ class SetOfParliamentMembers:
 
 		return result
 
-def launch_analysis(data_file, by_party=False):
+def launch_analysis(data_file, by_party=False, party='', view_all=False):
 	sopm = SetOfParliamentMembers('All MPS')
 	data = sopm.data_from_csv(os.path.join("data", data_file))
-	sopm.display_chart()
+	
+	if view_all:
+		sopm.display_chart()
 
-	if by_party:
+	if by_party:																#Va imprimer les graphes de chaque party un par un
 		for party, s in sopm.split_by_political_party().items():
-			s.display_chart()
+			s.display_chart(party)
 
-
-def main():
-	launch_analysis("current_mps.csv", True)
-
-if __name__ == '__main__':
-	main()
+	if party != '':
+		try:
+			sopm.split_by_political_party()[party].display_chart(party)
+		except KeyError as e:
+			lg.critical('Oops ! Party not found > {}'.format(e))
 
 
 ###### OLD ########
