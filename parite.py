@@ -19,6 +19,7 @@ def parse_arguments():
 	parser.add_argument("-p", "--party", help="""Type the party for which you wanna know the parity""")
 	parser.add_argument("-a", "--all", help="""Say if you wanna browse all the parties""")
 	parser.add_argument("-g", "--global", help="""Say if you just wanna see the global vision""", nargs='?', const=False)
+	parser.add_argument("-i", "--info", help="""Info about the file""")
 	return parser.parse_args()
 
 def main():
@@ -28,7 +29,7 @@ def main():
 	elif args.all:
 		c_an.launch_analysis("current_mps.csv", by_party=True)
 	else:
-		c_an.launch_analysis("current_mps.csv", view_all=True)
+		c_an.launch_analysis("current_mps.csv", view_all=True, info=args.info)
 
 if __name__ == "__main__":
 	main()

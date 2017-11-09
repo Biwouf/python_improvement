@@ -16,6 +16,9 @@ class SetOfParliamentMembers:
 	def __init__(self, name):
 		self.name = name
 
+	def __repr__(self):
+		return "Number of parliament members : {}".format(len(self.dataframe))
+
 	def data_from_csv(self, csv_file):
 		try:
 			self.dataframe = pd.read_csv(csv_file, sep= ";")
@@ -66,7 +69,7 @@ class SetOfParliamentMembers:
 
 		return result
 
-def launch_analysis(data_file, by_party=False, party='', view_all=False):
+def launch_analysis(data_file, by_party=False, party='', view_all=False, info=False):
 	sopm = SetOfParliamentMembers('All MPS')
 	data = sopm.data_from_csv(os.path.join("data", data_file))
 	
@@ -76,6 +79,9 @@ def launch_analysis(data_file, by_party=False, party='', view_all=False):
 	if by_party:																#Va imprimer les graphes de chaque party un par un
 		for party, s in sopm.split_by_political_party().items():
 			s.display_chart(party)
+
+	if info:
+		print(sopm)
 
 	if party != '':
 		try:
