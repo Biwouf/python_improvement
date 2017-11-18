@@ -63,7 +63,7 @@ class SetOfParliamentMembers:
 		all_parties = data["parti_ratt_financier"].dropna().unique()
 
 		for party in all_parties:
-			data_subset = data[data['parti_ratt_financier'] == party]			#Regroupe le dataframe complet pour ceux d'un même parti
+			data_subset = data[data['parti_ratt_financier'] == party]					#Regroupe le dataframe complet pour ceux d'un même parti
 			subset = SetOfParliamentMembers('MPs from party {}'.format(party))	#Création de l'objet avec le nom du parti en attribut
 			subset.data_from_dataframe(data_subset)								#Insertion du dataframe dans l'objet
 			result[party] = subset 												#Création d'un dico avec key > parti / value > sopm object
@@ -75,7 +75,6 @@ def launch_analysis(data_file, by_party=False, party='', view_all=False, info=Fa
 	data = sopm.data_from_csv(os.path.join("data", data_file))
 	
 	if view_all:
-		lg.debug('Try to display')
 		sopm.display_chart()
 
 	if by_party:																#Va imprimer les graphes de chaque party un par un

@@ -17,7 +17,7 @@ lg.basicConfig(level=lg.DEBUG)
 #Main
 def parse_arguments():
 	parser = argparse.ArgumentParser()
-	parser.add_argument("-p", "--party", help="""Type the party for which you wanna know the parity""")
+	parser.add_argument("-p", "--party", help="""Type the party for which you wanna know the parity. Spaces are handled""", nargs='+')			
 	parser.add_argument("-a", "--all", help="""Say if you wanna browse all the parties""")
 	parser.add_argument("-g", "--global", help="""Say if you just wanna see the global vision""", nargs='?', const=False)
 	parser.add_argument("-i", "--info", help="""Info about the file""")
@@ -39,7 +39,7 @@ def main():
 
 			if extension == 'csv':
 				if args.party:
-					c_an.launch_analysis(datafile, party=args.party)
+					c_an.launch_analysis(datafile, party=' '.join(args.party))
 				elif args.all:
 					c_an.launch_analysis(datafile, by_party=True)
 				else:
