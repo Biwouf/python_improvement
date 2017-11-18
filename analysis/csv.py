@@ -29,6 +29,7 @@ class SetOfParliamentMembers:
 
 	def __getitem__(self, index):
 		try:
+			#iloc permet de se positionner avec un index de dataframe
 			return self.dataframe.iloc[index]
 		except:
 			if index < 0:
@@ -99,8 +100,9 @@ def launch_analysis(data_file, by_party=False, party='', view_all=False, info=Fa
 	sopm = SetOfParliamentMembers('All MPS')
 	data = sopm.data_from_csv(os.path.join("data", data_file))
 
-	for mp in sopm:
-		print(mp['nom'])
+	#In order to test object iteration
+	#for mp in sopm:
+	#	print(mp['nom'], '      ', mp['emails'])
 	
 	if view_all:
 		sopm.display_chart()
