@@ -20,6 +20,31 @@ class SetOfParliamentMembers:
 	def __repr__(self):
 		return "Number of parliament members : {}".format(len(self.dataframe))
 
+	def __iter__(self):
+		self.state = 0
+		return self
+
+	def __len__(self):
+		return len(self.dataframe)	
+
+	def __getitem__(self, index):
+		try:
+			return self.dataframe.iloc[index]
+		except:
+			if index < 0:
+				raise Exception('Index must be positive')
+			elif index > len(self.dataframe):
+				raise Exception('Out of range ! There are {} mps'.formatl(len(self.dataframe)))
+			else:
+				raise Exception('There\'s something wrong with the index')
+
+	def __next__(self):
+		if self.state >= len(self):
+			raise StopIteration()
+		result = self.dataframe.iloc[self.state]
+		self.state += 1
+		return result
+
 	def data_from_csv(self, csv_file):
 		try:
 			self.dataframe = pd.read_csv(csv_file, sep= ";")
@@ -73,6 +98,9 @@ class SetOfParliamentMembers:
 def launch_analysis(data_file, by_party=False, party='', view_all=False, info=False):
 	sopm = SetOfParliamentMembers('All MPS')
 	data = sopm.data_from_csv(os.path.join("data", data_file))
+
+	for mp in sopm:
+		print(mp['nom'])
 	
 	if view_all:
 		sopm.display_chart()
