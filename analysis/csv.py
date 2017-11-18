@@ -10,6 +10,7 @@ import matplotlib as mpl
 mpl.use('TkAgg')
 import matplotlib.pyplot as plt
 import seaborn as sns
+import sys
 
 class SetOfParliamentMembers:
 
@@ -23,7 +24,7 @@ class SetOfParliamentMembers:
 		try:
 			self.dataframe = pd.read_csv(csv_file, sep= ";")
 		except FileNotFoundError as e:
-			lg.critical('File not found ! Error {}'.format(e))
+			sys.exit('Program stopped because of this error : {}'.format(e))
 
 
 	def data_from_dataframe(self, dataframe):
@@ -74,6 +75,7 @@ def launch_analysis(data_file, by_party=False, party='', view_all=False, info=Fa
 	data = sopm.data_from_csv(os.path.join("data", data_file))
 	
 	if view_all:
+		lg.debug('Try to display')
 		sopm.display_chart()
 
 	if by_party:																#Va imprimer les graphes de chaque party un par un
