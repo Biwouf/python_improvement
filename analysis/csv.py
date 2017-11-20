@@ -10,6 +10,7 @@ import matplotlib as mpl
 mpl.use('TkAgg')
 import matplotlib.pyplot as plt
 import seaborn as sns
+import sys
 
 class SetOfParliamentMembers:
 
@@ -23,7 +24,7 @@ class SetOfParliamentMembers:
 		try:
 			self.dataframe = pd.read_csv(csv_file, sep= ";")
 		except FileNotFoundError as e:
-			lg.critical('File not found ! Error {}'.format(e))
+			sys.exit('Program stopped because of this error : {}'.format(e))
 
 
 	def data_from_dataframe(self, dataframe):
@@ -62,7 +63,7 @@ class SetOfParliamentMembers:
 		all_parties = data["parti_ratt_financier"].dropna().unique()
 
 		for party in all_parties:
-			data_subset = data[data['parti_ratt_financier'] == party]			#Regroupe le dataframe complet pour ceux d'un même parti
+			data_subset = data[data['parti_ratt_financier'] == party]					#Regroupe le dataframe complet pour ceux d'un même parti
 			subset = SetOfParliamentMembers('MPs from party {}'.format(party))	#Création de l'objet avec le nom du parti en attribut
 			subset.data_from_dataframe(data_subset)								#Insertion du dataframe dans l'objet
 			result[party] = subset 												#Création d'un dico avec key > parti / value > sopm object
