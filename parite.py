@@ -4,6 +4,7 @@
 #Librairies
 import argparse
 import logging as lg
+import re
 
 #Modules
 import analysis.csv as c_an 
