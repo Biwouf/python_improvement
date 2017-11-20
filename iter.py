@@ -12,16 +12,22 @@ class MyIterator:
 		return self
 
 	def __next__(self):
-		print('On appelé __next__')
+		print('On a appelé __next__')
 		self.i += 2
 		if self.i > 56:
 			raise StopIteration()
 		return self.i
 
+
+def my_generator():
+	i = 40
+	while i <= 56:
+		i += 2
+		yield i 
+
 def main():
-	for i in MyIterator():
+	for i in my_generator():
 		print(i)
-
-
+	
 if __name__ == '__main__':
 	main()
