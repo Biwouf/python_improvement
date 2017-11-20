@@ -1,33 +1,25 @@
 #! /usr/bin/env python3
 # coding: utf-8
 
-class MyIterator:
+import re
 
-	def __init__(self):
-		print("Je m'initialise à 40")
-		self.i = 40
-
-	def __iter__(self):
-		print('On a appelé __iter__')
-		return self
-
-	def __next__(self):
-		print('On a appelé __next__')
-		self.i += 2
-		if self.i > 56:
-			raise StopIteration()
-		return self.i
-
-
-def my_generator():
-	i = 40
-	while i <= 56:
-		i += 2
-		yield i 
+big_data = """Le sénateur, dont il a été parlé plus haut, était un homme entendu qui 
+    avait fait son chemin avec une rectitude inattentive à toutes ces rencontres qui font 
+    obstacle et qu'on nomme conscience, foi jurée, justice, devoir; il avait marché droit à 
+    son but et sans broncher une seule fois dans la ligne de son avancement et de son intérêt. 
+    C'était un ancien procureur, attendri par le succès, pas méchant homme du tout, rendant 
+    tous les petits services qu'il pouvait à ses fils, à ses gendres, à ses parents, même à 
+    des amis; ayant sagement pris de la vie les bons côtés, les bonnes occasions, les bonnes 
+    aubaines. Le reste lui semblait assez bête. Il était spirituel, et juste assez lettré 
+    pour se croire un disciple d'Epicure en n'étant peut-être qu'un produit de Pigault-Lebrun.
+    [...]
+    (Les Misérables, Victor Hugo)
+    """
 
 def main():
-	for i in my_generator():
-		print(i)
+	for ch in big_data:
+		print(re.findall('\w', ch))
+
 	
 if __name__ == '__main__':
 	main()
