@@ -16,9 +16,13 @@ big_data = """Le sénateur, dont il a été parlé plus haut, était un homme en
     (Les Misérables, Victor Hugo)
     """
 
+def get_words(text):
+    data = len(re.findall('[\wéàôêè]', text))
+    return data
+
 def main():
-	for ch in big_data:
-		print(re.findall('\w', ch))
+    for ch in big_data:
+        print(get_words(ch))
 
 	
 if __name__ == '__main__':
