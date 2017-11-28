@@ -2,6 +2,10 @@
 # coding: utf-8
 
 import re
+import logging as lg 
+
+#Conf
+lg.basicConfig(level=lg.DEBUG) 
 
 big_data = """Le sénateur, dont il a été parlé plus haut, était un homme entendu qui 
     avait fait son chemin avec une rectitude inattentive à toutes ces rencontres qui font 
@@ -16,13 +20,28 @@ big_data = """Le sénateur, dont il a été parlé plus haut, était un homme en
     (Les Misérables, Victor Hugo)
     """
 
+def is_part_of_a_word(letter):
+    return len(re.findall('[\wéàôêè]', letter))
+
 def get_words(text):
-    data = len(re.findall('[\wéàôêè]', text))
-    return data
+    print('Je commence à lire le texte')
+
+    words = []
+    word = ''
+
+    for ch in big_data:
+        if is_part_of_a_word(ch):
+            word += ch
+        elif is_part_of_a_word(ch) == 0 and word != '':
+            words.append(word)
+            word = ''
+        else:
+            continue
+
+    return words
 
 def main():
-    for ch in big_data:
-        print(get_words(ch))
+    print(get_words(big_data))
 
 	
 if __name__ == '__main__':
