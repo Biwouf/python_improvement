@@ -21,9 +21,11 @@ big_data = """Le sénateur, dont il a été parlé plus haut, était un homme en
     """
 
 def is_part_of_a_word(letter):
+    """Return 1 if it's a letter. Else > 0"""
     return len(re.findall('[\wéàôêè]', letter))
 
 def get_words(text):
+    """Identify each word in a string"""
     print('Je commence à lire le texte')
 
     words = []
@@ -40,8 +42,25 @@ def get_words(text):
 
     return words
 
+def find_long_words(words):
+    """Identify word that exceed (or equal) 6 characters"""
+    return [x for x in words if len(x) >= 6]
+
+def find_words_with_a(words):
+    """Identify longs words which contain at least the 'a' character"""
+    return [x for x in words if 'a' in x]
+
 def main():
-    print(get_words(big_data))
+    """Main program"""
+    words = get_words(big_data)
+    print('Nombre de mots avant filtre : {}'.format(len(words)))
+    words = find_long_words(words)
+    print('Nombre de mots de plus ou de 6 caractères : {}'.format(len(words)))
+    words = find_words_with_a(words)
+    print('Nombre de mots de plus de ou de 6 caractères contenant au moins un a : {}'.format(len(words)))
+    
+    print('Inventaire des mots :')
+    print(words)
 
 	
 if __name__ == '__main__':
