@@ -35,7 +35,8 @@ def get_words(text):
         if is_part_of_a_word(ch):
             word += ch
         elif is_part_of_a_word(ch) == 0 and word != '':
-            words.append(word)
+            if len(word) >= 6 and 'a' in word:
+                words.append(word)
             word = ''
         else:
             continue
@@ -53,12 +54,7 @@ def find_words_with_a(words):
 def main():
     """Main program"""
     words = get_words(big_data)
-    print('Nombre de mots avant filtre : {}'.format(len(words)))
-    words = find_long_words(words)
-    print('Nombre de mots de plus ou de 6 caractères : {}'.format(len(words)))
-    words = find_words_with_a(words)
-    print('Nombre de mots de plus de ou de 6 caractères contenant au moins un a : {}'.format(len(words)))
-    
+    print('Nombre de mots de plus de ou de 6 caractères contenant au moins un a : {}'.format(len(words)))   
     print('Inventaire des mots :')
     print(words)
 
