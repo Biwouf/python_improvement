@@ -28,39 +28,36 @@ def get_words(text):
     """Identify each word in a string"""
     print('Je commence à lire le texte')
 
-    words = []
     word = ''
 
     for ch in big_data:
         if is_part_of_a_word(ch):
             word += ch
         elif is_part_of_a_word(ch) == 0 and word != '':
-            words.append(word)
+            yield word
             word = ''
         else:
             continue
 
-    return words
-
-def find_long_words(words):
-    """Identify word that exceed (or equal) 6 characters"""
-    return [w for w in words if len(w) >= 6]
+def find_words_with_a(words):
+    """Identify longs words which contain at least the 'a' character"""
+    return (x for x in words if len(x) >= 6)
 
 def find_words_with_a(words):
     """Identify longs words which contain at least the 'a' character"""
-    return [w for w in words if 'a' in w]
+    return (x for x in words if 'a' in x)
 
 def main():
     """Main program"""
+    #Création d'un générateur qui va comprendre tous les mots du texte
     words = get_words(big_data)
-    print('Nombre de mots avant filtre : {}'.format(len(words)))
+    #Création d'un nouveau générateur qui va comprendre les mots de plus ou de 6 caractères
     words = find_long_words(words)
-    print('Nombre de mots de plus ou de 6 caractères : {}'.format(len(words)))
+    #Création d'un nouveau générateur qui va comprendre les mots de plus ou de 6 caractères qui contiennent un a
     words = find_words_with_a(words)
-    print('Nombre de mots de plus de ou de 6 caractères contenant au moins un a : {}'.format(len(words)))
-    
-    print('Inventaire des mots :')
-    print(words)
+    print("Words n'est encore un générateur :")
+    print('Inventaire des mots de 6 lettes ou plus qui contiennent un a :')
+    print ([w for w in words])
 
 	
 if __name__ == '__main__':
