@@ -44,11 +44,11 @@ def get_words(text):
 
 def find_long_words(words):
     """Identify word that exceed (or equal) 6 characters"""
-    return [x for x in words if len(x) >= 6]
+    return [w for w in words if len(w) >= 6]
 
 def find_words_with_a(words):
     """Identify longs words which contain at least the 'a' character"""
-    return [x for x in words if 'a' in x]
+    return [w for w in words if 'a' in w]
 
 def main():
     """Main program"""
