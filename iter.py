@@ -39,8 +39,8 @@ def get_words(text):
         else:
             continue
 
-def find_words_with_a(words):
-    """Identify longs words which contain at least the 'a' character"""
+def find_long_words(words):
+    """Identify longs words. More than or 6 characters"""
     return (x for x in words if len(x) >= 6)
 
 def find_words_with_a(words):
